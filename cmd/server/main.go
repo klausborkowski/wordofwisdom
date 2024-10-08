@@ -20,8 +20,8 @@ func main() {
 	}
 
 	ctx := context.Background()
-	ctx = context.WithValue(ctx, "config", configs)
-	ctx = context.WithValue(ctx, "clock", clock.SystemClock{})
+	ctx = context.WithValue(ctx, config.ConfigCtxKey, configs)
+	ctx = context.WithValue(ctx, clock.ClockCtxKey, clock.SystemClock{})
 
 	cache, err := cache.InitRedisCache(ctx, configs.CacheConfig.Host, configs.CacheConfig.Port)
 	if err != nil {
@@ -30,7 +30,6 @@ func main() {
 	}
 	ctx = context.WithValue(ctx, "cache", cache)
 
-	// run server
 	serverAddress := fmt.Sprintf("%s:%d", configs.ServerConfig.Host, configs.ServerConfig.Port)
 	err = quotes.RunServer(ctx, serverAddress)
 	if err != nil {

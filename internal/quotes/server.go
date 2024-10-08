@@ -87,9 +87,9 @@ func ProcessRequest(ctx context.Context, msgStr string, clientInfo string) (*pro
 		return nil, ErrQuit
 	case protocol.RequestChallenge:
 		fmt.Printf("client %s requests challenge\n", clientInfo)
-		conf := ctx.Value("config").(*config.Configuration)
-		clock := ctx.Value("clock").(clock.Clock)
-		cache := ctx.Value("cache").(cache.Cache)
+		conf := ctx.Value(config.ConfigCtxKey).(*config.Configuration)
+		clock := ctx.Value(clock.ClockCtxKey).(clock.Clock)
+		cache := ctx.Value(cache.CacheCtxKey).(cache.Cache)
 		date := clock.Now()
 
 		randValue := rand.Intn(100000)
@@ -126,9 +126,9 @@ func ProcessRequest(ctx context.Context, msgStr string, clientInfo string) (*pro
 		if hashcash.Resource != clientInfo {
 			return nil, fmt.Errorf("invalid hashcash resource")
 		}
-		conf := ctx.Value("config").(*config.Configuration)
-		clock := ctx.Value("clock").(clock.Clock)
-		cache := ctx.Value("cache").(cache.Cache)
+		conf := ctx.Value(config.ConfigCtxKey).(*config.Configuration)
+		clock := ctx.Value(clock.ClockCtxKey).(clock.Clock)
+		cache := ctx.Value(cache.CacheCtxKey).(cache.Cache)
 
 		randValueBytes, err := base64.StdEncoding.DecodeString(hashcash.Rand)
 		if err != nil {

@@ -9,6 +9,10 @@ import (
 	"github.com/go-redis/redis/v8"
 )
 
+type cacheKey string
+
+const CacheCtxKey cacheKey = "cache"
+
 type RedisCache struct {
 	ctx    context.Context
 	client *redis.Client

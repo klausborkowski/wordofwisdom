@@ -2,6 +2,10 @@ package clock
 
 import "time"
 
+type clockKey string
+
+const ClockCtxKey clockKey = "clock"
+
 type SystemClock struct {
 }
 

@@ -58,7 +58,7 @@ func HandleConnection(ctx context.Context, readerConn io.Reader, writerConn io.W
 	}
 	fmt.Println("got hashcash:", hashcash)
 
-	conf := ctx.Value("config").(*config.Configuration)
+	conf := ctx.Value(config.ConfigCtxKey).(*config.Configuration)
 	hashcash, err = hashcash.ComputeHashcash(conf.HashcashConfig.MaxIteration)
 	if err != nil {
 		return "", fmt.Errorf("err compute hashcash: %w", err)

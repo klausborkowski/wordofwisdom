@@ -2,6 +2,10 @@ package config
 
 import "github.com/kelseyhightower/envconfig"
 
+type ctxKey string
+
+const ConfigCtxKey ctxKey = "config"
+
 type Configuration struct {
 	ServerConfig   *ServerConfig   `envconfig:"SERVER"`
 	CacheConfig    *ServerConfig   `envconfig:"CACHE"`

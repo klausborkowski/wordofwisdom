@@ -43,11 +43,9 @@ func (h HashcashData) ComputeHashcash(maxIterations int) (HashcashData, error) {
 	for h.Counter <= maxIterations || maxIterations <= 0 {
 		header := h.Stringify()
 		hash := sha1Hash(header)
-		//fmt.Println(header, hash)
 		if IsHashCorrect(hash, h.ZerosCount) {
 			return h, nil
 		}
-		// if hash don't have needed count of leading zeros, we are increasing counter and try next hash
 		h.Counter++
 	}
 	return h, fmt.Errorf("max iterations exceeded")
